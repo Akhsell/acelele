@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portofolio Akhsel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --dark-bg: #0a0a0a;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.8);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      background: var(--dark-bg);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--dark-bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-gradient);
+      border-radius: 4px;
+    }
+
+    /* Modern Navbar */
+    .navbar {
+      background: rgba(10, 10, 10, 0.9) !important;
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-link {
+      color: var(--text-primary) !important;
+      font-weight: 500;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-gradient);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: var(--dark-bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      z-index: 2;
+      position: relative;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 50%;
+      color: var(--text-primary);
+      text-decoration: none;
+      margin-right: 1rem;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .social-links a:hover {
+      background: var(--primary-gradient);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Profile Image with Modern Blob */
+    .profile-container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .profile-blob {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(102, 126, 234, 0.2));
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Scroll Down Indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .scroll-indicator a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      20%,
+      50%,
+      80%,
+      100% {
+        transform: translateY(0);
+      }
+
+      40% {
+        transform: translateY(-10px);
+      }
+
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* Modern Cards */
+    .modern-card {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .modern-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(102, 126, 234, 0.5);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+    }
+
+    /* About Section */
+    .about-section {
+      padding: 5rem 0;
+      background: var(--dark-bg);
+    }
+
+    .about-image-container {
+      position: relative;
+      text-align: center;
+    }
+
+    .about-image {
+      width: 100%;
+      max-width: 300px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 3px solid transparent;
+      background: var(--primary-gradient);
+      background-clip: padding-box;
+      filter: drop-shadow(0 15px 35px rgba(102, 126, 234, 0.3));
+    }
+
+    /* Skills Section */
+    .skills-section {
+      padding: 5rem 0;
+      background: var(--dark-bg);
+    }
+
+    .skill-card {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      height: 100%;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-10px);
+      background: var(--primary-gradient);
+      border-color: transparent;
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+    }
+
+    .skill-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .skill-card:hover .skill-icon {
+      -webkit-text-fill-color: white;
+      color: white;
+    }
+
+    /* Contact Section */
+    .contact-section {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    }
+
+    .contact-form {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 3rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-control {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      color: var(--text-primary);
+      padding: 0.75rem 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(102, 126, 234, 0.5);
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+      color: var(--text-primary);
+    }
+
+    .form-label {
+      color: var(--text-primary);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Modern Buttons */
+    .btn-modern {
+      background: var(--primary-gradient);
+      border: none;
+      border-radius: 50px;
+      padding: 0.75rem 2rem;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-modern:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+      color: white;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-bg);
+      border-top: 1px solid var(--glass-border);
+      padding: 2rem 0;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    /* Wave Dividers */
+    .wave-divider {
+      height: 100px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .wave-divider svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .modern-card,
+      .contact-form {
+        padding: 1.5rem;
+      }
+
+      .about-image {
+        max-width: 250px;
+        height: 300px;
+      }
+    }
+
+    /* Animation Classes */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s ease;
+    }
+
+    .fade-in-up.animate {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Particle Background */
+    .particles-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.3;
+    }
+  </style>
+</head>
+
+<body id="home">
+  <!-- Particles Background -->
+  <div class="particles-bg" id="particles-bg"></div>
+
+  <!-- Modern Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Akhsel's</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#skills">Skills</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="home">
+    <div class="container">
+      <div class="row align-items-center min-vh-100">
+        <div class="col-md-6 offset-md-1 col-12 text-center text-md-start order-md-first order-last">
+          <div class="hero-content" data-aos="fade-right">
+            <h1 class="hero-title">
+              Hello I'm<br />
+              Muhammad Akhsel Dwinanda.
+            </h1>
+            <h2 class="hero-subtitle">A Student Majoring in Software Engineering</h2>
+            <p class="hero-description">Studies at SMKN 46 Jakarta.</p>
+
+            <div class="social-links">
+              <a href="https://www.instagram.com/akhsell/" target="_blank">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://github.com/Akhsell" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-12">
+          <div class="profile-container" data-aos="fade-left">
+            <svg class="profile-blob" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <clipPath id="blob">
+                  <path d="M380,280Q340,360,240,380Q140,400,80,280Q20,160,120,80Q220,0,340,80Q460,160,380,280Z" />
+                </clipPath>
+                <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#667eea" />
+                  <stop offset="100%" style="stop-color:#764ba2" />
+                </linearGradient>
+              </defs>
+
+              <!-- Foto Anda dengan clipPath -->
+              <image href="/img/acel.jpeg" x="40" y="40" width="400" height="400" clip-path="url(#blob)"
+                preserveAspectRatio="xMidYMid slice" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="scroll-indicator">
+          <a href="#about">
+            <span>Scroll Down</span>
+            <i class="fas fa-chevron-down mt-2"></i>
+          </a>
+        </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="modern-card" data-aos="zoom-in">
+        <div class="row text-center mb-5">
+          <div class="col">
+            <h2 class="section-title">About Me</h2>
+          </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-lg-5 col-md-6 col-sm-12 mb-4">
+            <div class="about-image-container" data-aos="fade-right">
+              <!-- Profile placeholder -->
+              <div class="about-image d-flex align-items-center justify-content-center"
+                style="background-image: url('/img/Foto Akhsel.jpeg'); background-size: cover; background-position: center; background-repeat: no-repeat; width: 300px; height: 400px;">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-5 col-md-6 col-sm-12" data-aos="fade-left">
+            <p class="lead mb-4">
+              I am a student at SMKN 46 Jakarta, majoring in software engineering. My interest in computers encouraged
+              me to choose this field, with the hope of creating technological innovations that are beneficial to
+              society.
+            </p>
+            <a href="/img/CV Akhsel.pdf"
+              class="btn-modern" target="_blank">
+              <i class="fas fa-download me-2"></i>Download CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Skills Section -->
+<section class="skills-section" id="skills">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <h2 class="section-title">Skill</h2>
+      <h6 class="section-subtitle">My Technical Expertise</h6>
+      <p class="lead">
+        As a passionate and dedicated developer, I continually strive to expand my technical
+        skill set and deliver innovative solutions. Here are some of the
+        key skills and technologies I've mastered:
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-sm-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fab fa-html5"></i>
+          </div>
+          <h5>HTML</h5>
+          <p class="text">Semantic markup and modern HTML5 features</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fab fa-css3-alt"></i>
+          </div>
+          <h5>CSS</h5>
+          <p class="text">Modern styling with animations and responsive design</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fab fa-js-square"></i>
+          </div>
+          <h5>JavaScript</h5>
+          <p class="text">Dynamic web development and modern ES6+ features</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fab fa-figma"></i>
+          </div>
+          <h5>Figma</h5>
+          <p class="text">UI/UX design and prototyping</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Experience Section -->
+<section class="experience-section" id="experience" style="padding: 80px 0; margin-bottom: 50px;">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <h2 class="section-title">Experience</h2>
+      <h6 class="section-subtitle">My Achievements and Experiences</h6>
+      <p class="lead">
+        Here are some of my notable achievements and experiences that showcase my skills and dedication in the field of
+        technology and development.
+      </p>
+    </div>
+
+    <div class="row g-4" style="margin-bottom: 80px;">
+      <div class="col-sm-6 col-md-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <h5>LKS Cloud Computing 2025</h5>
+          <p class="text">Achieved 4th Place in the 2025 LKS Cloud Computing Competition</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h5>Web Development Project</h5>
+          <p class="text">Successfully completed multiple full-stack web applications</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <h5>UI/UX Design</h5>
+          <p class="text">Created user-friendly interfaces and prototypes for various projects</p>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3" data-aos="fade-up" data-aos-delay="400">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h5>Continuous Learning</h5>
+          <p class="text">Always staying updated with latest technologies and best practices</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="section-title">Contact Me</h2>
+        <h6 class="section-subtitle">Get in touch</h6>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="contact-form" data-aos="fade-up">
+            <form>
+              <div class="mb-3">
+                <label for="name" class="form-label">Nama</label>
+                <input type="text" class="form-control" id="name" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="pesan" class="form-label">Pesan</label>
+                <textarea class="form-control" id="pesan" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn-modern">
+                <i class="fas fa-paper-plane me-2"></i>Kirim Pesan
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Created by Acelele. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 100) {
+        navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+      } else {
+        navbar.style.background = 'rgba(10, 10, 10, 0.9)';
+      }
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Active navigation link update
+    window.addEventListener('scroll', function () {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - 200)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Particles background with Three.js
+    let scene, camera, renderer, particles;
+
+    function initParticles() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer({ alpha: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.getElementById('particles-bg').appendChild(renderer.domElement);
+
+      // Create particles
+      const geometry = new THREE.BufferGeometry();
+      const vertices = [];
+      const colors = [];
+
+      for (let i = 0; i < 800; i++) {
+        vertices.push(
+          (Math.random() - 0.5) * 2000,
+          (Math.random() - 0.5) * 2000,
+          (Math.random() - 0.5) * 2000
+        );
+
+        colors.push(
+          Math.random() * 0.5 + 0.5,
+          Math.random() * 0.5 + 0.5,
+          1
+        );
+      }
+
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+      geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 2,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.6
+      });
+
+      particles = new THREE.Points(geometry, material);
+      scene.add(particles);
+
+      camera.position.z = 1000;
+    }
+
+    function animateParticles() {
+      requestAnimationFrame(animateParticles);
+
+      particles.rotation.x += 0.0003;
+      particles.rotation.y += 0.0005;
+
+      renderer.render(scene, camera);
+    }
+
+    // Initialize particles
+    initParticles();
+    animateParticles();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Form submission
+    document.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Get form data
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('pesan').value;
+
+      // Simple validation
+      if (name && email && message) {
+        alert('Terima kasih! Pesan Anda telah dikirim.');
+        this.reset();
+      } else {
+        alert('Mohon lengkapi semua field.');
+      }
+    });
+
+    // Add hover effects to skill cards
+    document.querySelectorAll('.skill-card').forEach(card => {
+      card.addEventListener('mouseenter', function () {
+        this.style.transform = 'translateY(-15px) scale(1.05)';
+      });
+
+      card.addEventListener('mouseleave', function () {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+  </script>
+</body>
+
+</html>
